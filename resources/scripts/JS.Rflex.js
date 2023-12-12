@@ -185,6 +185,16 @@ jumpButton.addEventListener("click", function () {
 
 setInterval(function () {
   if (!isPaused) {
+    document.querySelector(".pause-text").style.display = "none";
+    updateJumpButtonVisibility();
+  } else {
+    document.querySelector(".pause-text").style.display = "block";
+    updateJumpButtonVisibility();
+  } 
+});
+
+setInterval(function () {
+  if (!isPaused) {
     counter += 10;
     if (counter % 1000 === 0) {
       displayCounterAtCenter();
