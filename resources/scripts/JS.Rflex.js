@@ -183,31 +183,6 @@ jumpButton.addEventListener("click", function () {
   }
 });
 
-function updateGameContainerStyle() {
-  var gameContainer = document.getElementById("game-container");
-
-  if (isPaused) {
-    gameContainer.style.transition = "opacity 5s";
-  } else {
-    gameContainer.style.transition = "opacity 0s";
-    setTimeout(function () {
-      gameContainer.style.opacity = 1;
-    }, 0);
-  }
-}
-
-setInterval(function () {
-  if (!isPaused) {
-    document.querySelector(".pause-text").style.display = "none";
-    updateJumpButtonVisibility();
-  } else {
-    document.querySelector(".pause-text").style.display = "block";
-    updateJumpButtonVisibility();
-  }
-
-  updateGameContainerStyle();
-}, 100);
-
 setInterval(function () {
   if (!isPaused) {
     counter += 10;
