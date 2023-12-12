@@ -106,23 +106,24 @@ function spawnObstacle() {
     var gameContainer = document.getElementById("game-container");
     gameContainer.appendChild(obstacle);
 
-    var moveInterval = setInterval(function () {
+    function moveObstacle() {
       var currentLeft = parseFloat(obstacle.style.left);
       var obstacleWidth = obstacle.clientWidth;
 
       if (checkCollision(player, obstacle)) {
         handleCollision();
         gameContainer.removeChild(obstacle);
-        clearInterval(moveInterval);
       } else if (currentLeft + obstacleWidth <= 0) {
         gameContainer.removeChild(obstacle);
-        clearInterval(moveInterval);
       } else {
         var palier = 200;
-        var increment = 2 + (counter / (palier * 10));
+        var increment = 3 + (counter / (palier * 10));
         obstacle.style.left = currentLeft - increment + "px";
+        requestAnimationFrame(moveObstacle);
       }
-    }, 10);
+    }
+
+    moveObstacle();
   }
 }
 
@@ -135,23 +136,24 @@ function spawnHole() {
     var gameContainer = document.getElementById("game-container");
     gameContainer.appendChild(hole);
 
-    var moveInterval = setInterval(function () {
+    function moveHole() {
       var currentLeft = parseFloat(hole.style.left);
       var holeWidth = hole.clientWidth;
 
       if (checkCollision(player, hole)) {
         handleCollision();
         gameContainer.removeChild(hole);
-        clearInterval(moveInterval);
       } else if (currentLeft + holeWidth <= 0) {
         gameContainer.removeChild(hole);
-        clearInterval(moveInterval);
       } else {
         var palier = 200;
-        var increment = 2 + (counter / (palier * 10));
+        var increment = 3 + (counter / (palier * 10));
         hole.style.left = currentLeft - increment + "px";
+        requestAnimationFrame(moveHole);
       }
-    }, 10);
+    }
+
+    moveHole();
   }
 }
 
@@ -182,19 +184,6 @@ jumpButton.addEventListener("click", function () {
     spawnRandomElement();
   }
 });
-
-function updateGameContainerStyle() {
-  var gameContainer = document.getElementById("game-container");
-
-  if (isPaused) {
-    gameContainer.style.transition = "opacity 5s";
-  } else {
-    gameContainer.style.transition = "opacity 0s";
-    setTimeout(function () {
-      gameContainer.style.opacity = 1;
-    }, 0);
-  }
-}
 
 setInterval(function () {
   if (!isPaused) {
